@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+
+//1043
+int main()
+{
+    char line[10005] = {0};
+    while(cin.getline(line,10001))
+    {
+        vector<char> P, A, T, e, s, t;
+        int len = strlen(line);
+        for(int i = 0; i < len; i++)
+        {
+            if('P' == line[i])
+                P.push_back(line[i]);
+            if('A' == line[i])
+                A.push_back(line[i]);
+            if('T' == line[i])
+                T.push_back(line[i]);
+            if('e' == line[i])
+                e.push_back(line[i]);
+            if('s' == line[i])
+                s.push_back(line[i]);
+            if('t' == line[i])
+                t.push_back(line[i]);
+        }
+        while(!P.empty()||!A.empty()||!T.empty()||!e.empty()||!s.empty()||!t.empty())
+        {
+            if(!P.empty())
+            {
+                cout<<'P';
+                P.pop_back();
+            }
+
+            if(!A.empty())
+            {
+                cout<<'A';
+                A.pop_back();
+            }
+
+            if(!T.empty())
+            {
+                cout<<'T';
+                T.pop_back();
+            }
+
+            if(!e.empty())
+            {
+                cout<<'e';
+                e.pop_back();
+            }
+
+            if(!s.empty())
+            {
+                cout<<'s';
+                s.pop_back();
+            }
+
+            if(!t.empty())
+            {
+                cout<<'t';
+                t.pop_back();
+            }
+
+        }
+        cout<<endl;
+    }
+}
