@@ -56,7 +56,14 @@ int main()
                 }
             }
         }
-
+        //上面这一大段需要自己实现，实际上如果使用c++中的string中的成员函数进行处理，会十分方便和高效
+        //后面对这段进行改写
+        //string line_str(line);
+        //Pindex = line_str.find('P',0);
+        //Tindex = line_str.find('T',0);
+        //就本题目而言，上面的做法是比较好的，因为只需要遍历一次就可以得到所有的信息，并且能够将一些错误的情况排除
+        //用c++的string反而不是太好做
+        //这里用到goto语句，所幸只是用来控制循环的跳转所以在理解和逻辑上不存在太大的问题
         if(Tindex - Pindex > 2)
         {
             if(strlen(line)-(Tindex-Pindex-1)*Pindex -1 == Tindex)
