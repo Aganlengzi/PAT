@@ -1,0 +1,81 @@
+//PAT-1003
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+#1003
+//仔细审题，分析题意并抽象出其中的本质，构思好以后开始coding
+//一开始没有通过原因是输入问题，关于输入的换行符在缓冲区中是否保留的问题，后面的输入最好采用C的scanf和printf
+//scanf在输入的时候会将换行符等从缓冲区中读出并舍弃
+//然后是输出问题：在之前已经判断并输出YES和NO之后后面依然进行判断，导致两次输出一行的判断结果
+
+int main()
+{
+    int total;
+    scanf("%d",&total);
+    for(int total_i = 0; total_i < total; total_i++)
+    {
+        char line[105] = {0};
+        scanf("%s", line);
+
+        int Pnum = 0, Tnum = 0;
+        int Pindex = 0, Tindex = 0;
+        for(int i = 0; i < strlen(line); i++)
+        {
+            if(line[i] != 'P' && line[i] != 'A' && line[i] != 'T')
+            {
+                cout<<"NO\n";
+                goto next;
+            }
+            if(line[i] == 'P')
+            {
+                Pindex = i;
+                Pnum++;
+                if(Pnum > 1)
+                {
+                    cout<<"NO\n";
+                    goto next;
+                }
+            }
+            if(line[i] == 'T')
+            {
+                Tindex = i;
+                Tnum++;
+                if(Tnum > 1)
+                {
+                    cout<<"NO\n";
+                    goto next;
+                }
+            }
+        }
+
+        if(Tindex - Pindex > 2)
+        {
+            if(strlen(line)-(Tindex-Pindex-1)*Pindex -1 == Tindex)
+                cout<<"YES\n";
+            else
+                cout<<"NO\n";
+        }
+        if(Tindex - Pindex == 2)
+        {
+            if(strlen(line) - Pindex - 1 == Tindex)
+                cout<<"YES\n";
+            else
+                cout<<"NO\n";
+        }
+        if(Tindex - Pindex < 2)
+        {
+            cout<<"NO\n";
+        }
+next:
+        ;
+    }
+}
