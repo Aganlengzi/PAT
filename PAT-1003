@@ -86,3 +86,55 @@ next:
         ;
     }
 }
+/**********************************************************************************************************/
+//在网上找到的利用c++string成员函数来解的写法，感觉思路清晰。
+//实际想法是一致的，但是怎么就觉得人家的思路那么清晰，而且代码这么漂亮。。。。
+#include<cstdio>
+#include<string>
+using namespace std;
+void check()
+{
+    char ch[105];
+    int idxT,idxP,len;
+    scanf("%s",ch);
+    string s=string(ch);
+    
+    len=s.length();
+    idxP=s.find('P',0);
+    idxT=s.find('T',0);
+    if(idxP==string::npos||idxT==string::npos||(idxP>=idxT-1))
+    {
+        printf("NO\n");//没有找到或者找到了但是二者的位置不对
+    }
+    else
+    {
+        string a(s,0,idxP);                 //a
+        string b(s,idxP+1,idxT-idxP-1);     //b
+        string c(s,idxT+1,len-idxT-1);      //c
+        string ans=a+b+c;
+        if(ans.find_first_not_of('A')!=string::npos)
+        {
+            printf("NO\n");//得到的字符串中应该全部都是A
+        }
+        else
+        {
+            if(idxP==0&&len-idxT-1==0)
+                printf("YES\n");
+            else if(idxP*(idxT-idxP-1)==len-idxT-1)
+                printf("YES\n");
+            else
+                printf("NO\n");
+        }
+    }
+    return;
+}
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    for(;n--;)
+    {
+        check();
+    }
+    return 0;
+}
