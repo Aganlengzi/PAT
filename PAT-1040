@@ -1,0 +1,73 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+#1040
+//此题本不难，只是一开始提交的时候，后面的两个测试用例始终过不了，感到很疑惑
+//怀疑是后面两个测试用例的数据比较大，想到了题中所说的要对1000000007取余，但是还是不能过
+//后面看到别人的做法，在声明计数变量的时候需要用数据类型 long long,改过后通过后面两个测试用例
+int main()
+{
+    char line[100005] = {0};
+    scanf("%s",line);
+    string buffer_line(line);
+
+    long long FirstPindex = buffer_line.find('P',0);
+    if(FirstPindex == string::npos)
+    {
+        cout<<0<<endl;
+        return 0;
+    }
+    long long LastTindex = buffer_line.find_last_of('T');
+    if(LastTindex == string::npos)
+    {
+        cout<<0<<endl;
+        return 0;
+    }
+    string the_line(buffer_line,FirstPindex,LastTindex+1);
+    //cout<<the_line<<endl;
+    long long Aindex;
+    long long lastAindex = 0;
+    long long TotalTnum = 0;
+
+    for(long long i = 0; i < the_line.size(); i++)
+    {
+        if(the_line[i] == 'T')
+        {
+            TotalTnum++;
+        }
+    }
+    TotalTnum %= 1000000007;
+    long long res = 0;
+    long long Pnum = 0;
+    long long Tnum = 0;
+    while((Aindex = the_line.find('A',lastAindex))!=string::npos)
+    {
+        for(long long pi = lastAindex; pi < Aindex; pi++)
+        {
+            if(the_line[pi] == 'P')
+            {
+                Pnum++;
+            }
+            if(the_line[pi] == 'T')
+            {
+                Tnum++;
+            }
+        }
+        Pnum %= 1000000007;
+        Tnum %=1000000007;
+        long long tmpTnum = TotalTnum-Tnum;
+        tmpTnum%= 1000000007;
+        res += Pnum*tmpTnum;
+        lastAindex = Aindex + 1;
+    }
+    cout<<res%1000000007<<endl;
+}
