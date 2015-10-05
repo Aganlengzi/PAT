@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+#1037
+//此题无难度，用C的输入方式非常方便将不同的单位进行分解，方便计算
+//都化成最小的同一单位是计算差值和单位转换的好方法
+int main()
+{
+    long long PGalleon = 0;
+    long long PSicke = 0;
+    long long PKnut = 0;
+    long long Ptotal = 0;
+
+    long long AGalleon = 0;
+    long long ASicke = 0;
+    long long AKnut = 0;
+    long long Atotal = 0;
+
+    long long the_knut = 0;
+
+    scanf("%lld.%lld.%lld %lld.%lld.%lld",&PGalleon,&PSicke,&PKnut,&AGalleon,&ASicke,&AKnut);
+    Ptotal = PGalleon * 17 * 29 + PSicke * 29 + PKnut;
+    Atotal = AGalleon * 17 * 29 + ASicke * 29 + AKnut;
+    if(Ptotal > Atotal)
+    {
+        the_knut = Ptotal - Atotal;
+        printf("-");
+    }
+    else
+    {
+        the_knut = Atotal - Ptotal;
+    }
+    printf("%lld.%lld.%lld\n",the_knut/17/29, the_knut/29%17, the_knut%29);
+}
