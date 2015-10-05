@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+#1032
+//此题无难度，可以优化的地方就是在输入的时候就计算最大值，省时
+int main()
+{
+    long long total = 0;
+    long long score[100005] = {0};
+    long long MAX_SCORE = 0;
+    long long MAX_index = 0;
+    scanf("%lld", &total);
+
+    for(int i = 0; i < total; i++)
+    {
+        long long school_id;
+        int score_id;
+        scanf("%lld %d", &school_id, &score_id);
+        score[school_id] +=score_id;
+        if(MAX_SCORE < score[school_id])
+        {
+            MAX_SCORE = score[school_id];
+            MAX_index = school_id;
+        }
+    }
+    printf("%lld %lld\n", MAX_index, MAX_SCORE);
+}
