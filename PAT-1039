@@ -1,0 +1,44 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+int main()
+{
+    int asc[123] = {0};
+    char tanzhu[1005] = {0};
+    char hong[1005] = {0};
+
+    scanf("%s",tanzhu);
+    scanf("%s",hong);
+    int tanzhu_num = strlen(tanzhu);
+    int hong_num = strlen(hong);
+    int no_num = 0;
+    for(int i = 0; i < tanzhu_num; i++)
+    {
+        asc[tanzhu[i]]++;
+    }
+    for(int j = 0; j < hong_num; j++)
+    {
+        asc[hong[j]]--;
+        if(asc[hong[j]] < 0)
+        {
+            no_num++;
+        }
+    }
+    if(no_num == 0)
+    {
+        printf("Yes %d\n", tanzhu_num - hong_num);
+    }
+    else
+    {
+        printf("No %d\n", no_num);
+    }
+}
