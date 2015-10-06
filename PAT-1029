@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+#1029
+//此题不难,利用STL中的string事半功倍
+int main()
+{
+    int wrong_keys[124] = {0};
+    char str_should[100] = {0};
+    char str_actual[100] = {0};
+    scanf("%s\n%s",str_should,str_actual);
+
+    string str_sh(str_should);
+    string str_ac(str_actual);
+
+    for(int i = 0; i < str_sh.size(); i++)
+    {
+        if(str_ac.find(str_should[i],0) == string::npos)
+        {
+            if(str_should[i]>='a' && str_should[i]<='z')
+                str_should[i] -= ('a'-'A');
+            if(wrong_keys[str_should[i]] == 0)
+                printf("%c",str_should[i]);
+            wrong_keys[str_should[i]]++;
+        }
+    }
+    //这样做并不是按照发现顺序进行输出的，不符合题意
+    //for(int j = 0; j< 124; j++)
+    //{
+    //    if(wrong_keys[j])
+    //        printf("%c",j);
+    //}
+    //
+}
