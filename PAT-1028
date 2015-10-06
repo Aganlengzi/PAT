@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+/*#1028
+//日期的比较
+//边界的考虑 输出格式，边界日期
+//没能用上STL中的string
+int birthcompare(int yyyy,int mm, int dd, int yyyy_new, int mm_new, int dd_new)
+{
+    if(yyyy > yyyy_new || (yyyy == yyyy_new && mm > mm_new)||(yyyy == yyyy_new && mm ==mm_new && dd > dd_new))
+    {
+        return 1;
+    }
+    if(yyyy == yyyy_new && mm ==mm_new && dd == dd_new)
+    {
+        return 0;
+    }
+    return -1;
+
+}
+void fuzhi(char a[], char b[])
+{
+    for(int i = 0; i < strlen(b); i++)
+    {
+        a[i] = b[i];
+    }
+    a[strlen(b)] = '\0';
+}
+
+
+int main()
+{
+    int total = 0;
+    scanf("%d",&total);
+    int total_valid = 0;
+    char name_oldest[10] = {0}, name_youngest[10] = {0};
+    int yyyy_oldest = 2014,mm_oldest = 9,dd_oldest = 6;
+    int yyyy_youngest = 1814,mm_youngest = 9,dd_youngest = 6;
+
+
+    for(int i = 0; i < total; i++)
+    {
+        char name[10] = {0};
+        int yyyy,mm,dd;
+        scanf("%s %d/%d/%d",&name,&yyyy,&mm,&dd);
+        if(yyyy < 1814 || (yyyy == 1814 && mm < 9)||(yyyy == 1814 && mm == 9 && dd <6))
+        {
+            continue;
+        }
+        if(yyyy > 2014 || (yyyy == 2014 && mm > 9)||(yyyy == 2014 && mm == 9 && dd >6))
+        {
+            continue;
+        }
+        total_valid++;
+        if(birthcompare(yyyy,mm,dd,yyyy_oldest,mm_oldest,dd_oldest) == -1)
+        {
+            yyyy_oldest = yyyy;
+            mm_oldest = mm;
+            dd_oldest = dd;
+            fuzhi(name_oldest,name);
+        }
+        if(birthcompare(yyyy,mm,dd,yyyy_youngest,mm_youngest,dd_youngest) == 1)
+        {
+            yyyy_youngest = yyyy;
+            mm_youngest = mm;
+            dd_youngest = dd;
+            fuzhi(name_youngest,name);
+        }
+    }
+    if(total_valid)
+        printf("%d %s %s\n", total_valid, name_oldest, name_youngest);
+    else
+        printf("%d\n", total_valid);//如果少了这一句会判格式错误
+}
+*/
