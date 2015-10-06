@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+#1008
+//注意数组循环移位的次数和数组本身长度的关系，起始位置和终止位置
+int main()
+{
+    int N = 0, M= 0;
+    int num[105] = {0};
+    int printed = 0;
+    scanf("%d %d", &N, &M);
+
+    for(int i = 0; i < N; i++)
+    {
+        scanf("%d",&num[i]);
+    }
+    M %= N;//注意循环移位的次数和数组本身的长度
+    for(int j = N - M; printed < N;j++ )
+    {
+        printf("%d",num[j%N]);
+        printed++;
+        if(printed == N)
+            printf("\n");
+        else
+            printf(" ");
+    }
+}
