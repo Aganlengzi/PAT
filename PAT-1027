@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+//此题不难，只是需要注意格式
+#1027
+int main()
+{
+    int total = 0;
+    int c = 0;
+    scanf("%d %c",&total,&c);
+
+    int line = sqrt((total+1)/2);
+    int row = 2*line - 1;
+    int beg = 0, ed = row;
+    for(int i = 0; i < line; i++)
+    {
+        for(int j = 0; j < row; j++)
+        {
+            if(j >= beg && j <ed)
+                printf("%c",c);
+            if(j < beg )        //else 这里如果只用else做简单处理就会出错，因为行后不应该有空格！
+                printf("%c",' ');
+        }
+        beg += 1;
+        ed -= 1;
+        printf("\n");
+
+    }
+    beg -= 2;
+    ed += 2;
+    for(int i = 0; i < line-1; i++)
+    {
+        for(int j = 0; j < row; j++)
+        {
+            if(j >= beg && j <ed)
+                printf("%c",c);
+            if(j < beg)
+                printf("%c",' ');
+        }
+        beg -= 1;
+        ed += 1;
+        printf("\n");
+    }
+    printf("%d",total - (2*line*line -1));
+}
