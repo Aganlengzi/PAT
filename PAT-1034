@@ -1,0 +1,182 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+//代码看上去比较乱，实际思路比较清晰
+//开始提交的时候有后面两个测试用例过不了
+//开始报的是浮点错误，怀疑是溢出问题造成除0等，解决方法是将所有的数据类型进行调整，主要是int---->long long
+//后面还是报结果错误，怀疑是中间结果计算错误，检查代码后将求最小公倍数的计算顺序稍作调整后正确。
+long long findcommonmax(long long m, long long n)
+{
+    if(m * n == 0)
+        return 1;
+    if(m < n)
+    {
+        long long tmp = m;
+        m = n;
+        n = tmp;
+    }
+    long long r= m%n;
+    while(r)
+    {
+        m = n;
+        n = r;
+        r= m%n;
+    }
+    return n;
+}
+
+long long findcommonmin(long long m, long long n)
+{
+    long long commonmax = findcommonmax(m,n);
+    return m /commonmax * n ;
+    //如果写成m*n/commonmax就会报错，最后两个测试用例过不了，应该是计算结果溢出，要十分小心这样的情况
+}
+
+
+
+typedef struct
+{
+    long long inte;
+    long long son;
+    long long mother;
+}Value;
+
+void printvalue(Value a, char * fuhao)
+{
+    if(a.inte == 0)
+    {
+        if(a.son < 0)
+            printf("(%lld/%lld)%s",a.son,a.mother,fuhao);
+        if(a.son == 0)
+            printf("%lld%s",a.son,fuhao);
+        if(a.son > 0)
+            printf("%lld/%lld%s",a.son,a.mother,fuhao);
+    }
+    if(a.inte < 0)
+    {
+        if(a.son > 0)
+            printf("(%lld %lld/%lld)%s",a.inte,a.son,a.mother,fuhao);
+        if(a.son == 0)
+            printf("(%lld)%s",a.inte,fuhao);
+    }
+    if(a.inte > 0)
+    {
+        if(a.son == 0)
+            printf("%lld%s",a.inte,fuhao);
+        if(a.son > 0)
+            printf("%lld %lld/%lld%s",a.inte,a.son,a.mother,fuhao);
+    }
+}
+
+void transtoValue(Value &b,long long a2,long long b2)
+{
+    if(b2 < 0)
+    {
+        a2 = -a2;
+        b2 = -b2;
+    }
+
+    b.inte = a2/b2;
+    b.mother = b2;
+    if(a2 < 0)
+    {
+        if(b.inte != 0)
+        {
+            b.son = -a2 - (-b.inte) * b.mother;
+        }
+        else
+        {
+            b.son = a2 - b.inte * b.mother;
+        }
+    }
+    else
+    {
+        b.son = a2 - b.inte * b.mother;
+    }
+
+}
+
+
+int main()
+{
+    long long a1,b1,a2,b2;
+    scanf("%lld/%lld %lld/%lld",&a1,&b1,&a2,&b2);
+    long long a1b1common = findcommonmax(abs(a1),abs(b1));
+    long long a2b2common = findcommonmax(abs(a2),abs(b2));
+
+    a1/=a1b1common;
+    b1/=a1b1common;
+    a2/=a2b2common;
+    b2/=a2b2common;
+
+    Value a,b;
+    transtoValue(a,a1,b1);
+    transtoValue(b,a2,b2);
+
+
+    long long b1b2commonmin = findcommonmin(b1,b2);
+    Value ressub,resadd,resa,ress;
+    resadd.mother = b1b2commonmin;
+    ressub.mother = b1b2commonmin;
+    resadd.son = b1b2commonmin/b1*a1 + b1b2commonmin/b2*a2;
+    ressub.son = b1b2commonmin/b1*a1 - b1b2commonmin/b2*a2;
+    long long addcommon = findcommonmax(abs(resadd.son),abs(resadd.mother));
+    long long subcommon = findcommonmax(abs(resadd.son),abs(resadd.mother));
+    resadd.son /= addcommon;
+    resadd.mother /= addcommon;
+    ressub.son /= subcommon;
+    ressub.mother /= subcommon;
+    transtoValue(resa,resadd.son,resadd.mother);
+    transtoValue(ress,ressub.son,ressub.mother);
+
+
+    //+
+    printvalue(a, " + ");
+    printvalue(b, " = ");
+    printvalue(resa, "\n");
+    //-
+    printvalue(a, " - ");
+    printvalue(b, " = ");
+    printvalue(ress, "\n");
+
+    //*
+    printvalue(a, " * ");
+    printvalue(b, " = ");
+    Value resmulti,resm;
+    resmulti.mother = b1*b2;
+    resmulti.son = a1*a2;
+    long long multicommon = findcommonmax(abs(resmulti.son),abs(resmulti.mother));
+    resmulti.son /= multicommon;
+    resmulti.mother /= multicommon;
+    transtoValue(resm,resmulti.son,resmulti.mother);
+    printvalue(resm, "\n");
+
+
+    // /
+    printvalue(a, " / ");
+    printvalue(b, " = ");
+    Value resdiv,resd;
+    resdiv.mother = b1*a2;
+    resdiv.son = a1*b2;
+    if(resdiv.mother == 0)
+    {
+        printf("Inf\n");
+    }
+    else
+    {
+        long long multicommon = findcommonmax(abs(resdiv.son),abs(resdiv.mother));
+        resdiv.son /= multicommon;
+        resdiv.mother /= multicommon;
+        transtoValue(resd,resdiv.son,resdiv.mother);
+        printvalue(resd, "\n");
+    }
+
+}
