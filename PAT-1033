@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+//需要仔细审题，第一行中坏键字符串可能是空串
+//此时使用scanf输入方式是不可以的，因为scanf不将空串作为合法的匹配进行输入
+int main()
+{
+    char str_wrong[257] = {0};
+    int wrong_keys[257] = {0};
+    char str_should[100005] = {0};
+    int total_print = 0;
+    cin.getline(str_wrong,257);
+    cin.getline(str_should,100005);
+   // scanf("%s\n%s",str_wrong,str_should);
+
+    for(int i = 0; i < strlen(str_wrong); i++)
+    {
+        if(str_wrong[i]>='A' && str_wrong[i]<='Z')
+        {
+            str_wrong[i] += ('a' - 'A');
+        }
+        wrong_keys[str_wrong[i]]++;
+    }
+    string str_sh(str_should);
+    string str_ac(str_wrong);
+
+    for(int i = 0; i < str_sh.size(); i++)
+    {
+        if(str_should[i]>='A' && str_should[i]<='Z')
+        {
+            if(wrong_keys['+'])
+                continue;
+            else
+            {
+                if(str_ac.find((str_should[i] + 'a' -'A'),0) == string::npos)
+                {
+                    printf("%c",str_should[i]);
+                    total_print++;
+                }
+            }
+        }
+        else if(str_ac.find(str_should[i],0) == string::npos)
+        {
+            printf("%c",str_should[i]);
+            total_print++;
+        }
+    }
+    //if(total_print == 0)
+        printf("\n");
+}
