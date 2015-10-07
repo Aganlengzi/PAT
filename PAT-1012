@@ -1,0 +1,106 @@
+#1012 
+//此题无难度，只要按照题中的要求进行就可以了
+int main()
+{
+    int res1 = 0, res2 = 0, res3 = 0,res5 = 0;
+    int fg1 = 0, fg2 = 0, fg3 = 0,fg4 = 0,fg5 = 0;
+    double res4 = 0;
+    int cnt4 = 0;
+    int N;
+    int res2flag = 1;
+    scanf("%d", &N);
+    for(int i=0; i < N; i++)
+    {
+        int tmp;
+        scanf("%d",&tmp);
+        switch(tmp%5)
+        {
+        case 0:
+            {
+                if(tmp%2 == 0)
+                {
+                    res1+=tmp;
+                    fg1 = 1;
+                }
+            }
+            break;
+        case 1:
+            {
+                fg2 = 1;
+                if(res2flag == 1)
+                {
+                    res2+=tmp;
+                }
+                else
+                {
+                    res2-=tmp;
+
+                }
+                res2flag = -res2flag;
+            }
+            break;
+        case 2:
+            {
+                fg3 = 1;
+                res3++;
+            }
+            break;
+        case 3:
+            {
+                fg4 = 1;
+                res4 += tmp;
+                cnt4++;
+            }
+            break;
+        case 4:
+            {
+                fg5 = 1;
+                if(tmp > res5)
+                    res5 = tmp;
+            }
+            break;
+        }
+    }
+    if(fg1)
+    {
+        printf("%d ",res1);
+    }
+    else
+    {
+        printf("N ");
+    }
+    if(fg2)
+    {
+        printf("%d ",res2);
+    }
+    else
+    {
+        printf("N ");
+    }
+    if(fg3)
+    {
+        printf("%d ",res3);
+    }
+    else
+    {
+        printf("N ");
+    }
+    if(fg4)
+    {
+        printf("%.1lf ",res4/cnt4);
+    }
+    else
+    {
+        printf("N ");
+    }
+    if(fg5)
+    {
+        printf("%d",res5);
+    }
+    else
+    {
+        printf("N");
+    }
+
+}
+*/
