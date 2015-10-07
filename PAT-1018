@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+#1018
+//本题中主要就是输入的时候有问题，注意用scanf的时候需要将行末的换行符清掉
+//另外需要注意最后的统计结果需要按照字母序进行输出
+int main()
+{
+    int total = 0;
+    int A_win = 0, A_level = 0, A_lose = 0;
+    int AB_win = 0, AC_win = 0, AJ_win = 0;
+    int BB_win = 0, BC_win = 0, BJ_win = 0;
+
+    scanf("%d",&total);
+    getchar();
+    for(int i = 0; i < total; i++)
+    {
+        char a, b;
+        scanf("%c %c", &a,&b);
+        getchar();
+        if(a == 'J' && b == 'B')
+        {
+            A_win++;
+            AJ_win++;
+        }
+        if(a == 'J' && b == 'C')
+        {
+            A_lose++;
+            BC_win++;
+        }
+        if(a == 'C' && b == 'J')
+        {
+            A_win++;
+            AC_win++;
+        }
+        if(a == 'C' && b == 'B')
+        {
+            A_lose++;
+            BB_win++;
+        }
+        if(a == 'B' && b == 'C')
+        {
+            A_win++;
+            AB_win++;
+        }
+        if(a == 'B' && b == 'J')
+        {
+            A_lose++;
+            BJ_win++;
+        }
+        if(a == b)
+        {
+            A_level++;
+        }
+    }
+    printf("%d %d %d\n", A_win,A_level,A_lose);
+    printf("%d %d %d\n", A_lose,A_level,A_win);
+
+    if(AB_win >= AC_win && AB_win >= AJ_win)
+        printf("B ");
+    if(AC_win > AB_win && AC_win >= AJ_win)
+        printf("C ");
+    if(AJ_win > AB_win && AJ_win > AC_win)
+        printf("J ");
+
+    if(BB_win >= BC_win && BB_win >= BJ_win)
+        printf("B\n");
+    if(BC_win > BB_win && BC_win >= BJ_win)
+        printf("C\n");
+    if(BJ_win > BB_win && BJ_win > BC_win)
+        printf("J\n");
+
+    //system("pause");
+}
