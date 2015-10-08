@@ -1,0 +1,35 @@
+#1017 
+//采用逐位处理，只需要保证输出商的第一位不是0，之后每一位商都输出就可以了
+//避免处理多位一起处理时后面如果全0时出现的多位商0需要占位的情况
+//同时不同处理被除数位数与采用的处理间隔之间不能整除的问题
+int main()
+{
+    char num[1005] = {0};
+    int factor = 0;
+    scanf("%s %d", num, &factor);
+
+    int yushu = 0;
+    int beichushu = 0;
+    int shang = 0;
+    int fg = 0;
+    for(int i = 0; i < strlen(num); i++)
+    {
+        beichushu *= 10;
+        beichushu += num[i]-'0';
+        shang = beichushu / factor;
+        if(shang != 0)
+        {
+            fg = 1;
+        }
+        if(fg)
+        {
+            printf("%d", shang);
+        }
+        yushu = beichushu % factor;
+        beichushu = yushu;
+    }
+    if(fg == 0)
+        printf("0");
+    printf(" %d\n", yushu);
+
+}
