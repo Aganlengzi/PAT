@@ -1,0 +1,38 @@
+#1007 未
+//是不是只要找到从3到那个数的每次递增2的数的数对就可以了？
+//需要写一个判断素数的程序
+int isprime(int n)
+{
+    if(n == 1 || n == 4 || n ==6 || n == 8)
+        return 0;
+    if(n == 2 || n ==3 || n == 5 || n == 7)
+        return 1;
+    for(int i = 2; i < sqrt(n)+1; i++)//这里要类似于9的情况，一定要取到平方根，否则会误判
+    {
+        if(n%i == 0)
+            return 0;
+    }
+    //printf("%d is prime\n",n);
+    return 1;
+}
+
+int main()
+{
+    int N = 0;
+    int total_valid = 0;
+    scanf("%d", &N);
+    if(N < 5)
+    {
+        printf("%d\n", 0);
+        return 0;
+    }
+    for(int j = 3; j+2 <= N; j+=2)
+    {
+        if(isprime(j) && isprime(j+2))
+        {
+            total_valid++;
+        }
+    }
+    printf("%d\n",total_valid);
+
+}
