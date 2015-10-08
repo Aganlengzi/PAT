@@ -33,3 +33,52 @@ int main()
     printf(" %d\n", yushu);
 
 }
+/****************************************************************************************************/
+//错误解法
+int main()
+{
+    char num[1005] = {0};
+    int factor = 0;
+    scanf("%s %d", num, &factor);
+
+    int yushu = 0;
+    int beichushu = 0;
+    int shang = 0;
+    for(int i = 0; i < strlen(num); i++)
+    {
+        if((i+1)%8 == 0)
+        {
+            beichushu *= 10;
+            beichushu += num[i]-'0';
+
+            shang = beichushu / factor;
+            if(shang == 0 && yushu == 0)
+                printf("00000000");
+            else
+                printf("%d", shang);
+            yushu = beichushu % factor;
+            beichushu = yushu;
+        }
+        else
+        {
+            beichushu *= 10;
+            beichushu += num[i]-'0';
+        }
+    }
+        shang = beichushu / factor;
+        yushu = beichushu % factor;
+        if((strlen(num))%8 == 0)
+            printf(" %d\n", yushu);
+        else
+        {
+            if(shang == 0 && yushu == 0)
+            {
+                for(int j = 0; j < strlen(num)%8; j++)
+                    printf("0");
+                printf(" %d\n", yushu);
+            }
+            else
+                printf("%d %d\n", shang, yushu);
+        }
+
+}
