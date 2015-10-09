@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+#1022
+//此题比较简单，但是要考虑边界条件
+int main()
+{
+    long long A, B, C;
+    int D;
+    vector<int> num;
+    scanf("%lld %lld %d", &A, &B, &D);
+    C = A + B;
+    if(C == 0)      //注意此处要考虑是否为0的情况，如果结果是0并且没有输出是要判错的
+    {
+        printf("0\n");
+        return 0;
+    }
+    while(C)
+    {
+        num.push_back(C%D);
+        C/=D;
+    }
+    vector<int>::reverse_iterator it;       //iterator 和 reverse_iterator是不同的
+    for(it = num.rbegin();it != num.rend();++it)
+    {
+        printf("%d",*it);
+    }
+
+    //for(int i = num.size() - 1; i >= 0; i--)
+    //{
+    //    printf("%d",num[i]);
+    //}
+    printf("\n");
+}
