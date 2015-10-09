@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+#1023 未
+//此题简单
+int main()
+{
+    int num[10] = {0};
+    int min_nozero = 0;
+    for(int i = 0; i < 10; i++)
+    {
+        scanf("%d", &num[i]);
+        if(num[i] && i && min_nozero == 0)
+        {
+            min_nozero = i;
+            num[i]--;
+        }
+    }
+    printf("%d", min_nozero);
+    for(int j = 0; j < 10; j++)
+    {
+        for(int k = num[j]; k > 0; k--)
+        {
+            printf("%d",j);
+        }
+    }
+    printf("\n");
+}
