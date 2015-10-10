@@ -1,0 +1,33 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+#1019
+//此题不难，关键是用到了顺序容器中的正向迭代器和反向迭代器以及排序函数sort()
+int main()
+{
+    int num = 0;
+    scanf("%d",&num);
+    vector<int> the_num;
+    do{
+        the_num.clear();
+        for(int i = 0; i<4; i++)
+        {
+            the_num.push_back(num%10);
+            num /= 10;
+        }
+        sort(the_num.begin(),the_num.end());
+        int beijianshu = the_num[3]*1000 + the_num[2]*100 + the_num[1]*10 + the_num[0];
+        sort(the_num.rbegin(),the_num.rend());
+        int jianshu = the_num[3]*1000 + the_num[2]*100 + the_num[1]*10 + the_num[0];
+        num = beijianshu - jianshu;
+        printf("%04d - %04d = %04d\n",beijianshu,jianshu,num);
+    }while(num != 6174 && num != 0);
+}
