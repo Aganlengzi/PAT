@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+//此题不难，关键在分类和比较函数
+//比较函数的返回值是bool定义的是“小于”关系
+typedef struct
+{
+public:
+    int stu_id;
+    int de_f;
+    int cai_f;
+    int zong_f;
+}student;
+
+bool stu_comp(student a, student b)
+{
+    if(a.zong_f > b.zong_f)
+        return true;
+    if(a.zong_f < b.zong_f)
+        return false;
+    if(a.de_f > b.de_f)
+        return true;
+    if(a.de_f < b.de_f)
+        return false;
+    if(a.stu_id > b.stu_id)
+        return false;
+    if(a.stu_id < b.stu_id)
+        return true;
+}
+
+
+int main()
+{
+    int N, L, H;
+    vector<student> first;
+    vector<student> second;
+    vector<student> third;
+    vector<student> others;
+    int total_valid = 0;
+    scanf("%d %d %d",&N,&L,&H);
+    for(int i = 0; i < N; i++)
+    {
+        student tmp;
+        scanf("%d %d %d",&tmp.stu_id,&tmp.de_f,&tmp.cai_f);
+        tmp.zong_f = tmp.de_f+tmp.cai_f;
+        if(tmp.de_f >= L && tmp.cai_f >= L)
+        {
+            total_valid++;
+            if(tmp.de_f >= H && tmp.cai_f >= H)
+            {
+                first.push_back(tmp);
+            }
+            else if(tmp.de_f >= H)
+            {
+                second.push_back(tmp);
+            }
+            else if(tmp.de_f >= tmp.cai_f)
+            {
+                third.push_back(tmp);
+            }
+            else
+            {
+                others.push_back(tmp);
+            }
+        }
+    }
+    sort(first.begin(),first.end(),stu_comp);
+    sort(second.begin(),second.end(),stu_comp);
+    sort(third.begin(),third.end(),stu_comp);
+    sort(others.begin(),others.end(),stu_comp);
+
+    printf("%d\n",total_valid);
+    for(int i = 0; i < first.size();i++)
+    {
+        printf("%d %d %d\n",first[i].stu_id,first[i].de_f,first[i].cai_f);
+    }
+    for(int i = 0; i < second.size();i++)
+    {
+        printf("%d %d %d\n",second[i].stu_id,second[i].de_f,second[i].cai_f);
+    }
+    for(int i = 0; i < third.size();i++)
+    {
+        printf("%d %d %d\n",third[i].stu_id,third[i].de_f,third[i].cai_f);
+    }
+    for(int i = 0; i < others.size();i++)
+    {
+        printf("%d %d %d\n",others[i].stu_id,others[i].de_f,others[i].cai_f);
+    }
+}
