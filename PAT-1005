@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+#1005
+//没想到这题这么容易就过了
+//提交前两次是因为格式问题
+int main()
+{
+    int total = 0;
+    vector<int> num;
+    vector<int> pass;
+    vector<int> res;
+
+    scanf("%d",&total);
+    for(int i = 0; i< total; i++)
+    {
+        int tmp;
+        scanf("%d",&tmp);
+        num.push_back(tmp);
+    }
+    sort(num.rbegin(),num.rend());//逆序
+
+    //从大到小逐个进行求解，记录中间结果
+    for(int j = 0; j<num.size(); j++)
+    {
+        int now = num[j];
+        while((now != 1))   //最坏情况是算到直到为1
+        {
+            //在pass中，说明已经算过了，但是计算的结果有两种：放入res中和没放入res中
+            //在这个数的时候的中间结果已经放到res中了，则此数被目前正在算的这个数覆盖了，应该删除res中的这个数
+            if(find(pass.begin(),pass.end(),now)!= pass.end())
+            {
+                vector<int>::iterator itfind = find(res.begin(),res.end(),now);
+                if(itfind!=res.end())
+                {
+                    res.erase(itfind);
+                }
+                break;
+            }
+            //now!=1 && 不在pass中
+            pass.push_back(now);
+            //除第一个数，需要判的数放入res中
+            if(now == num[j] && j)
+                res.push_back(now);
+            //进行迭代
+            if(now%2)
+            {
+                now = (now*3+1)/2;
+            }
+            else
+            {
+                now /= 2;
+            }
+        }
+        //一直算到1，说明之前的所有的数字不会覆盖这个数字
+        if(now == 1)
+        {
+            res.push_back(num[j]);
+        }
+    }
+
+    //结果排序
+    sort(res.rbegin(),res.rend());
+    for(int i = 0; i < res.size(); i++)
+    {
+        if(i != res.size() -1)
+            printf("%d ",res[i]);
+        else
+            printf("%d",res[i]);
+    }
+    printf("\n");
+}
