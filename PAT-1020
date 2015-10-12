@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+#1020 
+//算是最简单的贪心背包了吧。。。。
+typedef struct
+{
+    double total;
+    double value;
+    double price;
+}mooncake;
+bool comp_m(mooncake a, mooncake b)
+{
+    return a.price > b.price;
+}
+int main()
+{
+    int N,D;
+    vector<mooncake> m_cake;
+    double money = 0;
+    scanf("%d %d", &N, &D);
+
+    for(int i = 0; i < N; i++)
+    {
+        mooncake tmp;
+        scanf("%lf", &(tmp.total));
+        m_cake.push_back(tmp);
+    }
+    for(int j = 0; j < N; j++)
+    {
+        scanf("%lf", &(m_cake[j].value));
+        if(m_cake[j].total)
+            m_cake[j].price = m_cake[j].value / m_cake[j].total;
+    }
+
+    sort(m_cake.begin(),m_cake.end(),comp_m);
+
+    for(int k = 0; D && k < m_cake.size(); k++)
+    {
+        if(D >= m_cake[k].total)
+        {
+            money += m_cake[k].value;
+            D -= m_cake[k].total;
+        }
+        else
+        {
+            money += (D * m_cake[k].price);
+            D = 0;
+        }
+    }
+    printf("%.02lf",money);
+}
