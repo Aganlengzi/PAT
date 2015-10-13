@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+//本题可用快速排序算算进行排序后比较原来数组和排序后数组的相同位置的元素的大小
+//需要注意的是在排序后比较的时候要确保元数组中前面的数中没有比这个数更大的
+int main()
+{
+    int total = 0;
+    cin>>total;
+
+    int num[100005] = {0};
+    int yuan[100005] = {0};
+    int tmp;
+    vector<int> index;
+    int total_num = 0;
+    int flag = 1;
+
+    for(int i = 0; i < total; i++)
+    {
+        cin>>num[i];
+        yuan[i] = num[i];
+    }
+    sort(num, num+total);
+
+    int before_max = 0;
+    for(int j = 0; j < total; j++)
+    {
+        if(yuan[j] == num[j])
+        {
+            if(num[j]>= before_max )
+            {
+                index.push_back(j);
+                total_num++;
+            }
+        }
+        if(before_max < yuan[j])
+            before_max = yuan[j];
+    }
+
+    cout<<total_num<<endl;
+    for(int last_index = 0; last_index < index.size(); last_index++)
+    {
+        if(last_index != index.size() - 1)
+            cout<<num[index[last_index]]<<' ';
+        else
+            cout<<num[index[last_index]];
+    }
+    cout<<endl;//即使是0个可能的数，第二行也要输出
+}
