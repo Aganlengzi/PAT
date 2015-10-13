@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <deque>
+
+using namespace std;
+
+//优化就是在充分利用上次的计算的效果
+//上次的最大的长度是max_len
+//如果下次，前面下标后移一个，后面下标直接后移max_len个
+//如果通过就继续做，如果不通过，前面的下标就继续再后移就可以了
+int main()
+{
+    int N;
+    double p;
+    double num[100005] = {0};
+    double n;
+    int total;
+    int max_len = 0;
+
+    scanf("%d %lf", &N, &p);
+    for(int i = 0; i < N; i++)
+        scanf("%lf", &num[i]);
+    sort(num,num+N);
+
+    for(int i = 0; i < N; i++)
+    {
+        total = 0;
+        n = num[i] * p;
+        int j = i;
+        if(!(num[j+max_len] <= n))      //优化就是在充分利用上次的计算的效果
+            continue;
+        else
+        {
+            j = i+max_len;
+            total = max_len;
+        }
+
+        for(; num[j] <= n && j < N; j++)
+        {
+            total++;
+        }
+        if(total > max_len)
+            max_len = total;
+        if(max_len >= N-i)
+            break;
+    }
+    printf("%d\n",max_len);
+}
