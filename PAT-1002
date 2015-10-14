@@ -1,0 +1,43 @@
+#1002
+int num[100] = {0};
+string pinyin[] = {"ling","yi","er","san","si","wu","liu","qi","ba","jiu"};
+
+int main()
+{
+    int sum = 0;
+    vector<int> sum_num;
+    string the_num;
+    while( cin>> the_num)
+    {
+        sum = 0;
+        string::iterator it;
+        sum_num.clear();
+        for(it = the_num.begin(); it != the_num.end(); it++)
+        {
+            sum += (*it - '0');
+        }
+        if(sum == 0)
+        {
+            cout<<pinyin[0]<<endl;
+        }
+
+        while(sum)
+        {
+            sum_num.push_back(sum%10);
+            sum /= 10;
+        }
+        int sum_num_size = sum_num.size();
+        for(int i = sum_num_size -1 ; i >= 0; i--)
+        {
+            cout<<pinyin[sum_num[i]];
+            if(i != 0)
+            {
+                cout<<' ';
+            }
+        }
+        cout<<endl;
+
+    }
+
+
+}
