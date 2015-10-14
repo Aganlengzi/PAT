@@ -1,0 +1,33 @@
+#1001
+int main()
+{
+    int num = 0;
+    int total_times = 0;
+    while( cin>>num )
+    {
+        total_times = 0;
+        if(num == 1)
+        {
+            cout<<0<<endl;
+            continue;
+        }
+
+        while(num)
+        {
+            if(num%2 == 0)
+                num /= 2;
+            else
+            {
+                num *= 3;
+                ++num;
+                num /= 2;
+            }
+            total_times++;
+            if(num == 1)
+            {
+                cout<<total_times<<endl;
+                break;
+            }
+        }
+    }
+}
