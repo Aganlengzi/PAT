@@ -1,0 +1,36 @@
+#1004
+int main()
+{
+    string max_name, max_birth;
+    string min_name, min_birth;
+    int max_grade, min_grade;
+    int num = 0;
+    while( cin>>num )
+    {
+        max_grade = -1;
+        min_grade = 101;
+        string tmp_name, tmp_birth;
+        int tmp_grade;
+        for(int i = num; i > 0; i--)
+        {
+            cin>>tmp_name>>tmp_birth>>tmp_grade;
+            if(tmp_grade > max_grade)
+            {
+                max_grade = tmp_grade;
+                max_name = tmp_name;
+                max_birth = tmp_birth;
+            }
+            if(tmp_grade < min_grade)
+            {
+                min_grade = tmp_grade;
+                min_birth = tmp_birth;
+                min_name = tmp_name;
+            }
+        }
+        cout<<max_name<<' '<<max_birth<<endl;
+        cout<<min_name<<' '<<min_birth<<endl;
+    }
+    vector<string> names;
+    vector<string> bithdays;
+
+}
